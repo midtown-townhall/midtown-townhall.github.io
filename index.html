@@ -16,9 +16,15 @@
 			$.getJSON('https://script.google.com/macros/s/AKfycbxnWDUIDjpGdWk2oV4BDCbGtFNcqQmXkgVFA0mSLgnnGxdlJ1PK/exec?action=read&what=promo', function(data) {
 				for( var i = 0; i < Object.keys(data.records).length; i++ ){
 					var tmp = data.records[i].Detail_Item.replace(/\n/g, "<br>");
+					if( data.records[i].URL_Foto.includes("drive.google.com") ){
+						tmpUrl = "https://drive.google.com/uc?id=" + data.records[i].URL_Foto.split("https://drive.google.com/file/d/")[1];
+						tmpUrl = tmpUrl.split("/view?usp=sharing")[0];
+					}else{
+						tmpUrl = data.records[i].URL_Foto;
+					}
 					var html = "<div class=\"col-6 col-md-4 p-2 p-md-3\">" +
-						"<div class=\"card bg-info border-info text-white\" data-toggle=\"modal\" data-target=\"#modal\" onclick=\"updateModal('" + data.records[i].Nama_Item + "','" + data.records[i].URL_Foto + "','" + tmp + "','" + data.records[i].Harga_Item + "');\">" +
-							"<img src=\"" + data.records[i].URL_Foto + "\" class=\"card-img-top\" alt=\"" + data.records[i].Nama_Item + "\">" +
+						"<div class=\"card bg-info border-info text-white\" data-toggle=\"modal\" data-target=\"#modal\" onclick=\"updateModal('" + data.records[i].Nama_Item + "','" + tmpUrl + "','" + tmp + "','" + data.records[i].Harga_Item + "');\">" +
+							"<img src=\"" + tmpUrl + "\" class=\"card-img-top\" alt=\"" + data.records[i].Nama_Item + "\">" +
 							"<div class=\"card-body p-2\">" +
 								"<p class=\"card-text\">" + data.records[i].Nama_Item + "</p>" +
 							"</div>" +
