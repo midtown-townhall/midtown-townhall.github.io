@@ -14,7 +14,7 @@
 	<script>
 	$(document).ready(function(){
 		$.getJSON('https://script.google.com/macros/s/AKfycbxnWDUIDjpGdWk2oV4BDCbGtFNcqQmXkgVFA0mSLgnnGxdlJ1PK/exec?action=read&what=promo', function(data) {
-			for( var i = Object.keys(data.records).length; i > 0; i-- ){
+			for( var i = Object.keys(data.records).length - 1; i >= 0; i-- ){
 				var tmp = data.records[i].Detail_Item.replace(/\n/g, "<br>");
 				if( data.records[i].URL_Foto.includes("drive.google.com") ){
 					tmpUrl = "https://drive.google.com/uc?id=" + data.records[i].URL_Foto.split("https://drive.google.com/file/d/")[1];
